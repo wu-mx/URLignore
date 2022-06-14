@@ -16,18 +16,16 @@ curl -sL https://rpm.nodesource.com/setup_16.x | bash -
 sudo yum -y install nodejs
 ```
 
-#### 2.准备好节点文件，一行一个节点链接，重命名为url。<br>
+### 2.准备好节点文件，一行一个节点链接，重命名为url。<br>
 
-#### 3.克隆仓库：
+### 3.克隆仓库：
 ````shell
 git clone https://github.com/wu-mx/URLignore.git
 ````
 
-#### 4.将url文件拷入URLignore文件夹<br>
-#### 5.在命令行执行:
+### 4.将url文件拷入URLignore文件夹<br>
+### 5.在命令行执行:
 ```shell
 npm run start
 ```
-#### 6.稍候片刻，URLignore将会自动完成节点去重，并将去重完毕的文件输出到目录下的out文件。
-<br>
-Licence:GPLv3
+### 6.稍候片刻，URLignore将会自动完成节点去重，并将去重完毕的文件输出到目录下的out文件。
