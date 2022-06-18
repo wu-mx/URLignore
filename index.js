@@ -48,6 +48,11 @@ async function run(){
                 let ssrAddress = ssrData.split(':')[0];
                 resList.push({type: 'ssr', data:ssrData.replace(/remarks=\w+?&/,'remarks={name}&'),address:ssrAddress});
                 break
+            case 'https':
+                let httpsData = url.split('://')[1].split('#')[0];
+                let httpsAddress = Buffer.from(httpsData.split('?')[0],"base64").toString('utf8').split('@')[1].split(':')[0]
+                resList.push({type: 'https',data:httpsData,address:httpsAddress})
+                break
             default:
                 break
         }
@@ -89,6 +94,9 @@ async function run(){
                 break
             case 'ssr':
                 urlCountryList[finalList[i].country].push('ssr://'+Buffer.from(item.data.replace('{name}',Buffer.from((name).toString(),'utf8').toString('base64')),'utf8').toString('base64'));
+                break
+            case 'https':
+                urlCountryList[finalList[i].country].push('https://'+item.data+'#'+encodeURIComponent(name.toString()))
                 break
             default:
                 break
