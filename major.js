@@ -9,8 +9,8 @@ const ProgressBar = require('./process-bar')
 const config = require("./config");
 const os = require("os");
 
-let file = fs.readFileSync('out',"utf-8")
-let list = parser.read('out')
+let file = null;
+let list = null;
 let resList = [];
 let finalList = [];
 let clash;
@@ -171,6 +171,8 @@ async function finish(){
 }
 
 module.exports = {async start(){
+        file = fs.readFileSync('out',"utf-8")
+        list = parser.read('out')
         await startSub();
         console.log('Subconverter start ok!!!');
         await convert();

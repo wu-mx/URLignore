@@ -118,10 +118,11 @@ async function run(){
     }
     console.log(`去重完成，总共${urlList.length}个节点，去重${urlList.length-finalURLs.length}个节点，剩余${finalURLs.length}个节点。`)
     fs.writeFileSync('./out',finalURLs.join('\n'))
+}
+
+run().then(async ()=>{
     if(config.enableMediaUnlockTest){
         console.log('即将开始流媒体测试...')
         await major.start()
     }
-}
-
-run()
+})
