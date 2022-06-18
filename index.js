@@ -1,6 +1,7 @@
 const fs = require('fs')
 const location = require('./location')
 const config = require('./config')
+const major = require('./major')
 
 let urls = fs.readFileSync('./url','utf8');
 let flags = JSON.parse(fs.readFileSync('./flags.json','utf8'))
@@ -79,8 +80,13 @@ async function run(){
     //变回链接
     for(let i=0;i<finalList.length;i++){
         let item = finalList[i];
+        let name;
         countryCount[finalList[i].country]++
-        let name = emojiList[countryList.indexOf(finalList[i].country)]+finalList[i].country+' '+countryCount[finalList[i].country]+config.nodeAddName
+        if(config.enableMediaUnlockTest === true){
+            name = emojiList[countryList.indexOf(finalList[i].country)]+finalList[i].country+' '+countryCount[finalList[i].country]+' | {{result}}'+config.nodeAddName
+        }else{
+            name = emojiList[countryList.indexOf(finalList[i].country)]+finalList[i].country+' '+countryCount[finalList[i].country]+config.nodeAddName
+        }
         switch (item.type){
             case 'vmess':
                 item.data.ps = (name).toString();
@@ -112,6 +118,10 @@ async function run(){
     }
     console.log(`去重完成，总共${urlList.length}个节点，去重${urlList.length-finalURLs.length}个节点，剩余${finalURLs.length}个节点。`)
     fs.writeFileSync('./out',finalURLs.join('\n'))
+    if(config.enableMediaUnlockTest){
+        console.log('即将开始流媒体测试...')
+        await major.start()
+    }
 }
 
 run()
