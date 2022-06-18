@@ -1,6 +1,6 @@
 # URLignore
 一个简单的节点处理小工具，支持去重不同名但为同一配置的节点,可自动添加国家和自定义内容。<br>
-支持SS/SSR/Vmess/Trojan。
+支持SS/SSR/Vmess/Trojan/Https。
 
 ## 快速开始
 ### 1.安装Node.js和npm
