@@ -218,9 +218,9 @@ function getPath(i){
         case 'subconverter':
             if(os.platform() === 'win32'){
                 if(os.arch() === 'ia32'){
-                    return './subconverter/subconverter-ia32.exe'
+                    return path.join(process.cwd()+'/subconverter/subconverter-ia32.exe')
                 }else if(os.arch() === 'x64'){
-                    return './subconverter/subconverter-amd64.exe'
+                    return path.join(process.cwd()+'/subconverter/subconverter-amd64.exe')
                 }else{
                     throw 'Your arch is not supported.Only support x86 and x64.'
                 }
