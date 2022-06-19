@@ -72,52 +72,61 @@ async function run(){
         finalList.push(JSON.parse(afterList[i]))
     }
 
+    let stack = [];
+
     //批量测试国家
     for(let i=0;i<finalList.length;i++){
-        finalList[i].country = await location.get(finalList[i].address)
+        stack.push(new Promise(async (res,rej)=>{
+            finalList[i].country = await location.get(finalList[i].address)
+            res()
+        }))
     }
 
-    //变回链接
-    for(let i=0;i<finalList.length;i++){
-        let item = finalList[i];
-        let name;
-        countryCount[finalList[i].country]++
-        if(config.enableMediaUnlockTest === true){
-            name = emojiList[countryList.indexOf(finalList[i].country)]+finalList[i].country+' '+countryCount[finalList[i].country]+' | {{result}}'+config.nodeAddName
-        }else{
-            name = emojiList[countryList.indexOf(finalList[i].country)]+finalList[i].country+' '+countryCount[finalList[i].country]+config.nodeAddName
-        }
-        switch (item.type){
-            case 'vmess':
-                item.data.ps = (name).toString();
-                urlCountryList[finalList[i].country].push('vmess://'+Buffer.from(JSON.stringify(item.data),'utf8').toString('base64'));
-                break
-            case 'trojan':
-                urlCountryList[finalList[i].country].push('trojan://'+item.data+'#'+(name).toString())
-                break
-            case 'ss':
-                urlCountryList[finalList[i].country].push('ss://'+item.data+'#'+(name).toString())
-                break
-            case 'ssr':
-                urlCountryList[finalList[i].country].push('ssr://'+Buffer.from(item.data.replace('{name}',Buffer.from((name).toString(),'utf8').toString('base64')),'utf8').toString('base64'));
-                break
-            case 'https':
-                urlCountryList[finalList[i].country].push('https://'+item.data+'#'+encodeURIComponent(name.toString()))
-                break
-            default:
-                break
-        }
-    }
-    for(const i in urlCountryList){
-        if(urlCountryList[i].length === 0 ){
-        }else{
-            for (let a=0;a<urlCountryList[i].length;a++){
-                finalURLs.push(urlCountryList[i][a])
+    Promise.all(stack).then(async ()=>{
+        for(let i=0;i<finalList.length;i++){
+            let item = finalList[i];
+            let name;
+            countryCount[finalList[i].country]++
+            if(config.enableMediaUnlockTest === true){
+                name = emojiList[countryList.indexOf(finalList[i].country)]+finalList[i].country+' '+countryCount[finalList[i].country]+' | {{result}}'+config.nodeAddName
+            }else{
+                name = emojiList[countryList.indexOf(finalList[i].country)]+finalList[i].country+' '+countryCount[finalList[i].country]+config.nodeAddName
+            }
+            switch (item.type){
+                case 'vmess':
+                    item.data.ps = (name).toString();
+                    urlCountryList[finalList[i].country].push('vmess://'+Buffer.from(JSON.stringify(item.data),'utf8').toString('base64'));
+                    break
+                case 'trojan':
+                    urlCountryList[finalList[i].country].push('trojan://'+item.data+'#'+(name).toString())
+                    break
+                case 'ss':
+                    urlCountryList[finalList[i].country].push('ss://'+item.data+'#'+(name).toString())
+                    break
+                case 'ssr':
+                    urlCountryList[finalList[i].country].push('ssr://'+Buffer.from(item.data.replace('{name}',Buffer.from((name).toString(),'utf8').toString('base64')),'utf8').toString('base64'));
+                    break
+                case 'https':
+                    urlCountryList[finalList[i].country].push('https://'+item.data+'#'+encodeURIComponent(name.toString()))
+                    break
+                default:
+                    break
             }
         }
-    }
-    console.log(`去重完成，总共${urlList.length}个节点，去重${urlList.length-finalURLs.length}个节点，剩余${finalURLs.length}个节点。`)
-    fs.writeFileSync('./out',finalURLs.join('\n'))
+        for(const i in urlCountryList){
+            if(urlCountryList[i].length === 0 ){
+            }else{
+                for (let a=0;a<urlCountryList[i].length;a++){
+                    finalURLs.push(urlCountryList[i][a])
+                }
+            }
+        }
+        console.log(`去重完成，总共${urlList.length}个节点，去重${urlList.length-finalURLs.length}个节点，剩余${finalURLs.length}个节点。`)
+        fs.writeFileSync('./out',finalURLs.join('\n'))
+    })
+
+    //变回链接
+
 }
 
 run().then(async ()=>{
