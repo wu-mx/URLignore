@@ -1,7 +1,7 @@
 # URLignore
 [中文文档](./README-zh.md) <br>
 A simple node tool that supports removing duplicate configuration nodes, adding countries and add custom content automatically.<br>
-Supports SS/SSR/Vmess/Trojan/Https.<br>
+Supports SS/SSR/Vmess/Trojan/Https.<br />
 
 
 ## Quick Start
