@@ -57,4 +57,4 @@ module.exports={
 ```
 The DNS servers 223.5.5.5 and 114.114.114.114 are used, and the output node name is followed by the " | URLignore" suffix, such as "🇭🇰HK 1 | URLignore".
 
-### URLignore follows [GPLv3](./LICENSE).
+
