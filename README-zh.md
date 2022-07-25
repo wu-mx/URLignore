@@ -1,4 +1,6 @@
 # URLignore
+## 从2022年7月25日起，urlignore取消开源协议，现在只能进行查看源码、分叉。禁止使用和修改该项目。<br>如果你在你的项目中使用了urlignore，请立即移除。
+
 一个简单的节点处理小工具，支持去重不同名但为同一配置的节点,可自动添加国家和自定义内容。<br>
 支持SS/SSR/Vmess/Trojan/Https。
 
@@ -51,5 +53,3 @@ module.exports={
 }
 ```
 则使用223.5.5.5和114.114.114.114的DNS服务器，且在输出的节点名后会有" | URLignore"的后缀，如"🇭🇰HK 1 | URLignore"。
-
-### URLignore遵循[GPLv3](./LICENSE)协议。
