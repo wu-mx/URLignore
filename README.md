@@ -1,4 +1,7 @@
 # URLignore
+
+## Starting July 25, 2022, urlignore cancels the open source licence and is now only available for viewing source code and forking. Use and modification of the project is prohibited.If you are using urlignore in your project, please remove it immediately.
+
 [中文文档](./README-zh.md) <br>
 A simple node tool that supports removing duplicate configuration nodes, adding countries and add custom content automatically.<br>
 Supports SS/SSR/Vmess/Trojan/Https.<br />
